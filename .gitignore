@@ -40,6 +40,11 @@ dist/
 # Coverage
 coverage/
 *.lcov
+.coverage
+htmlcov/
+
+# pytest
+.pytest_cache/
 
 # IDE
 .vscode/

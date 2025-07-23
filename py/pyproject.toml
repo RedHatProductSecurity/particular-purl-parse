@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "particular-purl-parse"
+dynamic = ["version"]
+description = "A library for parsing PackageURL (PURL) strings and extracting component information"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Red Hat Product Security", email = "product-security@redhat.com"}
+]
+maintainers = [
+    {name = "Red Hat Product Security", email = "product-security@redhat.com"}
+]
+keywords = ["purl", "packageurl", "parsing", "python"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "packageurl-python>=0.11.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "black>=21.0",
+    "flake8>=3.8",
+    "mypy>=0.800",
+]
+
+[project.urls]
+Homepage = "https://github.com/RedHatProductSecurity/particular-purl-parse"
+Repository = "https://github.com/RedHatProductSecurity/particular-purl-parse"
+Documentation = "https://github.com/RedHatProductSecurity/particular-purl-parse#readme"
+"Bug Tracker" = "https://github.com/RedHatProductSecurity/particular-purl-parse/issues"
+
+[tool.setuptools]
+packages = ["particular_purl_parse"]
+
+[tool.setuptools_scm]
+write_to = "particular_purl_parse/_version.py"
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=particular_purl_parse --cov-report=term-missing --cov-report=html" 

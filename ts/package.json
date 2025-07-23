@@ -1,0 +1,50 @@
+{
+  "name": "@redhat-product-security/particular-purl-parse",
+  "version": "1.0.0",
+  "description": "A library for parsing PackageURL (PURL) strings and extracting component information",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write src/**/*.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "purl",
+    "packageurl",
+    "parsing",
+    "typescript"
+  ],
+  "author": "Red Hat Product Security",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedHatProductSecurity/particular-purl-parse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RedHatProductSecurity/particular-purl-parse/issues"
+  },
+  "homepage": "https://github.com/RedHatProductSecurity/particular-purl-parse#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "packageurl-js": "^1.0.0"
+  }
+}

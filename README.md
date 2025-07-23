@@ -1,5 +1,7 @@
 # Particular PURL Parse
 
+> ⚠️ This is a work in progress and is not intended for usage.
+
 A library for parsing PackageURL (PURL) strings and extracting component information. Available for both Python and TypeScript/JavaScript.
 
 This repository contains two separate packages:

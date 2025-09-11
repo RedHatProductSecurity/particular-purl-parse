@@ -3,8 +3,7 @@ Tests for the core PURL parsing functionality.
 """
 
 import pytest
-from particular_purl_parse.core import ps_component_from_purl, _ps_component_oci
-from packageurl import PackageURL
+from particular_purl_parse import ps_component_from_purl
 
 
 class TestPsComponentFromPurl:
@@ -67,13 +66,19 @@ class TestPsComponentFromPurl:
     def test_oci_purl_with_invalid_repository_url(self):
         """Test OCI PURL with invalid repository_url structure."""
         purl = "pkg:oci/nginx@1.21.0?repository_url=invalid"
-        with pytest.raises(ValueError, match="Invalid repository_url in OCI PURL: insufficient path components"):
+        with pytest.raises(
+            ValueError,
+            match="Invalid repository_url in OCI PURL: insufficient path components",
+        ):
             ps_component_from_purl(purl)
 
     def test_oci_purl_with_single_slash_repository_url(self):
         """Test OCI PURL with repository_url that has only one slash."""
         purl = "pkg:oci/nginx@1.21.0?repository_url=docker.io"
-        with pytest.raises(ValueError, match="Invalid repository_url in OCI PURL: insufficient path components"):
+        with pytest.raises(
+            ValueError,
+            match="Invalid repository_url in OCI PURL: insufficient path components",
+        ):
             ps_component_from_purl(purl)
 
     def test_rpm_purl_without_rpmmod(self):
@@ -90,7 +95,9 @@ class TestPsComponentFromPurl:
 
     def test_oci_purl_with_version_and_other_qualifiers(self):
         """Test OCI PURL with version and other qualifiers."""
-        purl = "pkg:oci/nginx@1.21.0?repository_url=docker.io/library&arch=amd64&os=linux"
+        purl = (
+            "pkg:oci/nginx@1.21.0?repository_url=docker.io/library&arch=amd64&os=linux"
+        )
         result = ps_component_from_purl(purl)
         assert result == "library/nginx"
 
@@ -106,38 +113,44 @@ class TestPsComponentOci:
 
     def test_valid_repository_url(self):
         """Test with valid repository URL."""
-        purl = PackageURL.from_string("pkg:oci/nginx@1.21.0?repository_url=docker.io/library")
-        result = _ps_component_oci(purl)
+        purl = "pkg:oci/nginx@1.21.0?repository_url=docker.io/library"
+        result = ps_component_from_purl(purl)
         assert result == "library/nginx"
 
     def test_missing_repository_url(self):
         """Test with missing repository_url qualifier."""
-        purl = PackageURL.from_string("pkg:oci/nginx@1.21.0")
+        purl = "pkg:oci/nginx@1.21.0"
         with pytest.raises(ValueError, match="Missing repository_url in OCI PURL"):
-            _ps_component_oci(purl)
+            ps_component_from_purl(purl)
 
     def test_empty_repository_url(self):
         """Test with empty repository_url qualifier."""
-        purl = PackageURL.from_string("pkg:oci/nginx@1.21.0?repository_url=")
+        purl = "pkg:oci/nginx@1.21.0?repository_url="
         with pytest.raises(ValueError, match="Missing repository_url in OCI PURL"):
-            _ps_component_oci(purl)
+            ps_component_from_purl(purl)
 
     def test_invalid_repository_url_structure(self):
         """Test with invalid repository URL structure."""
-        purl = PackageURL.from_string("pkg:oci/nginx@1.21.0?repository_url=invalid")
-        with pytest.raises(ValueError, match="Invalid repository_url in OCI PURL: insufficient path components"):
-            _ps_component_oci(purl)
+        purl = "pkg:oci/nginx@1.21.0?repository_url=invalid"
+        with pytest.raises(
+            ValueError,
+            match="Invalid repository_url in OCI PURL: insufficient path components",
+        ):
+            ps_component_from_purl(purl)
 
     def test_single_slash_repository_url(self):
         """Test with repository URL that has only one slash."""
-        purl = PackageURL.from_string("pkg:oci/nginx@1.21.0?repository_url=docker.io")
-        with pytest.raises(ValueError, match="Invalid repository_url in OCI PURL: insufficient path components"):
-            _ps_component_oci(purl)
+        purl = "pkg:oci/nginx@1.21.0?repository_url=docker.io"
+        with pytest.raises(
+            ValueError,
+            match="Invalid repository_url in OCI PURL: insufficient path components",
+        ):
+            ps_component_from_purl(purl)
 
     def test_complex_repository_url(self):
         """Test with complex repository URL structure."""
-        purl = PackageURL.from_string("pkg:oci/nginx@1.21.0?repository_url=registry.example.com/team/project")
-        result = _ps_component_oci(purl)
+        purl = "pkg:oci/nginx@1.21.0?repository_url=registry.example.com/team/project"
+        result = ps_component_from_purl(purl)
         assert result == "team/nginx"
 
 
@@ -185,4 +198,4 @@ class TestEdgeCases:
         """Test with Unicode characters in package name."""
         purl = "pkg:oci/测试包@1.0.0?repository_url=docker.io/library"
         result = ps_component_from_purl(purl)
-        assert result == "library/测试包" 
+        assert result == "library/测试包"

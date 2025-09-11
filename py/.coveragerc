@@ -1,0 +1,6 @@
+[run]
+core = sysmon
+omit = *__init__.py
+
+[report]
+omit = *test*, *__init__.py

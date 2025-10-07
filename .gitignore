@@ -2,6 +2,7 @@
 venv/
 env/
 ENV/
+.venv
 
 # Python
 __pycache__/
@@ -24,6 +25,9 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.tox/
+*_cache
+
 
 # Node.js
 node_modules/
